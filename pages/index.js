@@ -1,16 +1,9 @@
 import Link from 'next/link'
-import Head from '../components/head'
-import Nav from '../components/nav'
+import AppLayout from '../components/AppLayout'
 
 export default () => (
-  <div>
-    <Head title="Home" />
-    <Nav />
-
-    <div className="hero">
-      <h1 className="title">Welcome to Next!</h1>
-      <p className="description">To get started, edit <code>pages/index.js</code> and save to reload.</p>
-
+  <AppLayout title="Dashboard">
+    <div>
       <div className="row">
         <Link href="https://github.com/zeit/next.js#getting-started">
           <a className="card">
@@ -36,10 +29,6 @@ export default () => (
     </div>
 
     <style jsx>{`
-      .hero {
-        width: 100%;
-        color: #333;
-      }
       .title {
         margin: 0;
         width: 100%;
@@ -51,8 +40,6 @@ export default () => (
         text-align: center;
       }
       .row {
-        max-width: 880px;
-        margin: 80px auto 40px;
         display: flex;
         flex-direction: row;
         justify-content: space-around;
@@ -80,5 +67,5 @@ export default () => (
         color: #333;
       }
     `}</style>
-  </div>
+  </AppLayout>
 )

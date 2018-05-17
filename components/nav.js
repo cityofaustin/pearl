@@ -1,60 +1,65 @@
-import Head from './head'
+import { string } from 'prop-types'
+
 import Link from 'next/link'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTachometerAlt } from '@fortawesome/free-solid-svg-icons'
+import { faFile, faChartBar } from '@fortawesome/free-regular-svg-icons'
 
-const links = [
-  { href: 'https://github.com/segmentio/create-next-app', label: 'Github' }
-].map(link => {
-  link.key = `nav-link-${link.href}-${link.label}`
-  return link
-})
 
-const Nav = () => (
-  <nav>
+const Nav = (props) => (
     <ul>
       <li>
-        <Link prefetch href="/">
-          <a>Home</a>
+        <Link href="/">
+          <a>
+            <span className="icon">
+              <FontAwesomeIcon icon={faTachometerAlt} />
+            </span>
+            Dashboard
+          </a>
         </Link>
       </li>
-      <ul>
-        {links.map(
-          ({ key, href, label }) => (
-            <li key={key}>
-              <Link href={href}>
-                <a>{label}</a>
-              </Link>
-            </li>
-          )
-        )}
-      </ul>
-    </ul>
+      <li>
+        <Link href="/pages">
+          <a>
+            <span className="icon">
+              <FontAwesomeIcon icon={faFile} />
+            </span>
+            Pages
+          </a>
+        </Link>
+      </li>
+      <li>
+        <Link href="/performance">
+          <a>
+            <span className="icon">
+              <FontAwesomeIcon icon={faChartBar} />
+            </span>
+            Performance
+          </a>
+        </Link>
+      </li>
 
     <style jsx>{`
-      :global(body) {
-        margin: 0;
-        font-family: -apple-system,BlinkMacSystemFont,Avenir Next,Avenir,Helvetica,sans-serif;
-      }
-      nav {
-        text-align: center;
-      }
       ul {
-        display: flex;
-        justify-content: space-between;
+        list-style: none;
+        padding: 0 0;
+        margin: 0 1rem;
       }
-      nav > ul {
-        padding: 4px 16px;
-      }
+
       li {
-        display: flex;
-        padding: 6px 8px;
+        padding: 0.5rem 0;
       }
-      a {
-        color: #067df7;
-        text-decoration: none;
-        font-size: 13px;
+
+      .icon {
+        width: 16px;
+        margin-right: 0.5rem;
       }
     `}</style>
-  </nav>
+  </ul>
 )
+
+// Nav.propTypes = {
+//   title: string,
+// }
 
 export default Nav

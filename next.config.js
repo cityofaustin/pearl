@@ -6,5 +6,8 @@ module.exports = {
     }
 
     return config
+  },
+  publicRuntimeConfig: {
+    cmsAPI: process.env.CMS_API,
   }
 }
