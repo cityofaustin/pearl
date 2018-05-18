@@ -14,14 +14,14 @@ const SELECTABLE_THEMES = ['Housing & Utilities', 'Government & Business'];
 
 export default class CreatePage extends React.Component {
   constructor(props) {
+    super(props);
+
     const selectableThemes = []
     props.themes.forEach(theme => {
       if (SELECTABLE_THEMES.includes(theme.text)) {
         selectableThemes.push(theme);
       }
     })
-
-    super(props);
 
     this.state = {
       pageTypes: [
