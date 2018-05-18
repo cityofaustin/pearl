@@ -5,21 +5,33 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faListOl } from '@fortawesome/free-solid-svg-icons'
 import { faCalendar, faIdCard, faNewspaper } from '@fortawesome/free-regular-svg-icons'
 
+import axios from '../plugins/axios'
+import {Router} from '../plugins/routes'
+
 const MAX_TITLE_CHARS = 55;
+const SELECTABLE_THEMES = ['Housing & Utilities', 'Government & Business'];
 
 
 export default class CreatePage extends React.Component {
   constructor(props) {
+    const selectableThemes = []
+    props.themes.forEach(theme => {
+      if (SELECTABLE_THEMES.includes(theme.text)) {
+        selectableThemes.push(theme);
+      }
+    })
+
     super(props);
 
     this.state = {
-      activePage: 0,
       pageTypes: [
         {name: 'Event', icon: faCalendar, description: 'Events are added to your department page automatically.'},
         {name: 'Service', icon: faListOl, description: 'A step-by-step guide to a particular city service.'},
         {name: 'Department', icon: faIdCard, description: 'Basic information about a department, including contact information.'},
         {name: 'News Release', icon: faNewspaper, description: 'News releases are time-boxed and are archived after they expire.'},
       ],
+      selectableThemes: selectableThemes,
+      activePage: 0,
       selectedPageType: '',
       selectedTitle: '',
       titleCharsRemaining: MAX_TITLE_CHARS,
@@ -34,7 +46,7 @@ export default class CreatePage extends React.Component {
   }
 
   componentWillReceiveProps() {
-    this.setState({activePage: 0});
+    this.setState({activePage: 0, selectedPageType: '', selectedTitle: '', selectedTopic: '', titleCharsRemaining: MAX_TITLE_CHARS});
   }
 
   onPrevious() {
@@ -57,8 +69,51 @@ export default class CreatePage extends React.Component {
     this.setState({activePage: activePage + 1});
   }
 
-  onCreatePage() {
-    this.props.onClose();
+  onSelectTopic(topic) {
+    this.setState({selectedTopic: topic.text})
+  }
+
+  async onCreatePage() {
+    const {selectedPageType, selectedTitle, selectedTopic} = this.state;
+    const resp = await this.createPage(selectedPageType, selectedTitle, selectedTopic);
+    console.log(resp);
+    if (resp.status !== 200) {
+      throw new Error('Request failed');
+    }
+    else if (resp.data && resp.data.errors) {
+      throw new Error(resp.data.errors[0]);
+    }
+    else if (resp.data && resp.data.data) {
+      Router.pushRoute('editPage', {id: resp.data.data.createPage.page.id})
+      this.props.onClose();
+    }
+    else {
+      console.error('Unknown response');
+      throw new Error('Unknown response');
+    }
+  }
+
+  async createPage(type, title, topic) {
+    console.log(`Creating ${type} page "${title}" in ${topic}...`);
+    const query = `
+      mutation createPage($pageType:PageType!, $title:String!, $topic:String!) {
+        createPage(pageType:$pageType, title:$title, topic:$topic) {
+          page {
+            id
+            title
+          }
+        }
+      }`;
+    const d = {
+      query: query,
+      variables: {
+        pageType: type.toUpperCase().replace(/\s+/g, '_'),
+        title: title,
+        topic: topic,
+      },
+    };
+
+    return axios.post('', d);
   }
 
   renderPageTypeSelector() {
@@ -84,6 +139,18 @@ export default class CreatePage extends React.Component {
           .container {
             display: flex;
           }
+
+          button {
+            background-color: #fff;
+            border: 1px solid rgba(0,0,0,.125);
+            border-radius: .25rem;
+            padding: 0.6rem;
+            margin: 0.6rem;
+          }
+
+          button:hover {
+            box-shadow: 3px 3px 8px #666;
+          }
         `}</style>
       </div>
     );
@@ -100,7 +167,7 @@ export default class CreatePage extends React.Component {
         <form>
           <div className="form-group">
             <label htmlFor="pageTitleInput">Page Title</label>
-            <input value={selectedTitle} onChange={this.onTitleChange} aria-describedby="pageTitleHelp" placeholder="" />
+            <input value={selectedTitle} onChange={this.onTitleChange} aria-describedby="pageTitleHelp" placeholder="" autoFocus />
             <small id="pageTitleHelp" className="form-text text-muted">Example: Drop off household hazardous waste and other recyclables</small>
             <small className="form-text text-muted">Psst! You can use up to {titleCharsRemaining} more characters</small>
           </div>
@@ -129,15 +196,94 @@ export default class CreatePage extends React.Component {
     )
   }
 
+  renderTopics(topics) {
+    const {selectedTopic} = this.state;
+    return (
+      <ul>
+        {topics.map((topic, i) => {
+          return (
+            <li key={i}>
+              <button className={topic.text === selectedTopic ? 'active': ''} onClick={this.onSelectTopic.bind(this, topic)}>{ topic.text }</button>
+            </li>
+          )
+        })}
+
+        <style jsx>{`
+          ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+          }
+
+          li {
+            margin: 0.2rem;
+          }
+
+          button {
+            width: 100%;
+            background-color: #fff;
+            border: 1px solid rgba(0,0,0,.125);
+            border-radius: .25rem;
+            padding: 0.4rem;
+            margin: 0.2rem;
+            text-align: left;
+          }
+
+          button:hover {
+            background-color: #f8f9fa;
+          }
+
+          button.active {
+            background-color: #007bff;
+            border-color: #007bff;
+          }
+        `}</style>
+      </ul>
+    )
+  }
+
   renderTopicSelector() {
+    const {selectableThemes} = this.state;
+
     return (
       <div>
         <h1>Please select the topic that best fits</h1>
+
+        <div className="card-deck">
+          {selectableThemes.map((theme, i) => {
+            return (
+              <div className="card" key={i}>
+                <div className="card-body">
+                  <h3 className="text-center card-title">{ theme.text }</h3>
+                  <div className="card-text">
+                    {this.renderTopics(theme.topics)}
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
 
         <div className="button-group">
           <button onClick={this.onPrevious}>Previous</button>
           <button onClick={this.onCreatePage}>Create Page</button>
         </div>
+
+        <style jsx>{`
+          .card-deck {
+            display: flex;
+          }
+
+          .card {
+            margin: 1rem;
+            padding: 1rem;
+            border: 1px solid lightgrey;
+          }
+
+          h3 {
+            text-align: center;
+          }
+        `}</style>
       </div>
     )
   }

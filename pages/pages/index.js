@@ -46,7 +46,7 @@ export default class Page extends React.Component {
             </div>
           </div>
 
-          <CreatePage open={open} onClose={this.closeModal} />
+          <CreatePage open={open} onClose={this.closeModal} themes={this.props.themes} />
 
           <table>
             <thead>
@@ -184,7 +184,11 @@ Page.getInitialProps = async () => {
     }
   });
 
-  return {pages};
-}
+  const themes = resp.data.allThemes.edges.map((n) => {
+    const theme = Object.assign({}, n.node);
+    theme.topics = theme.topics.edges.map((n) => Object.assign({}, n.node));
+    return theme;
+  });
 
-// export default Page
+  return {pages, themes};
+}
