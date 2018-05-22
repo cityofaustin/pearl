@@ -63,7 +63,12 @@ const uiSchema = {
     "ui:options": {
       "rows": 5
     }
-  }
+  },
+  steps: {
+    items: {
+      'ui:widget': 'textarea',
+    }
+  },
 };
 
 const QUERY = `
@@ -73,6 +78,7 @@ query servicePage($pageID: ID!) {
       node {
         id
         title
+        steps
         additionalContent
         dynamicContent
         searchDescription
@@ -106,6 +112,10 @@ export default class Page extends React.Component {
 
   render() {
     const {pageID, page: {id, ...formData}} = this.props;
+
+    formData.steps = formData.steps.match(/<li>(.*?)<\/li>/g).map(match => {
+      return match.replace(/^<li><p>|<\/p><\/li>$/g, '');
+    });
 
     return (
       <AppLayout title={`Editing page ${pageID}`}>
