@@ -2,23 +2,13 @@ import { string } from 'prop-types'
 
 import Link from 'next/link'
 import Head from '../components/Head'
-import Header from '../components/Header'
-import Nav from '../components/Nav'
 
 
-const AppLayout = (props) => (
+const BlankLayout = (props) => (
   <div>
     <Head title={props.title} />
 
-    <Header />
-    <app>
-      <content>
-        { props.children }
-      </content>
-      <sidebar>
-        <Nav />
-      </sidebar>
-    </app>
+    { props.children }
 
     <style jsx>{`
       height: 100%;
@@ -32,12 +22,6 @@ const AppLayout = (props) => (
         flex-grow: 100;
         padding: 1rem;
       }
-      sidebar {
-        background-color: rgb(248, 249, 250);
-        box-shadow: inset -1px 0 0 rgba(0,0,0,.1);
-        flex-basis: 15%;
-        padding: 0.5rem 0.2rem;
-      }
     `}</style>
     <style global jsx>{`
       html, body, #__next { height: 100%; }
@@ -48,8 +32,8 @@ const AppLayout = (props) => (
   </div>
 )
 
-AppLayout.propTypes = {
+BlankLayout.propTypes = {
   title: string,
 }
 
-export default AppLayout
+export default BlankLayout

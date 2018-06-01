@@ -5,11 +5,11 @@ import { faFile } from '@fortawesome/free-regular-svg-icons'
 
 import axios from '../../plugins/axios'
 import { Link } from '../../plugins/routes'
-import AppLayout from '../../components/AppLayout'
+import {withAppLayout} from '../../layouts/AppLayout'
 import CreatePage from '../../components/CreatePage'
 
 
-export default class Page extends React.Component {
+class Page extends React.Component {
   constructor(props) {
     super(props);
 
@@ -32,7 +32,7 @@ export default class Page extends React.Component {
     const { open } = this.state;
 
     return (
-      <AppLayout title="Pages">
+      <div>
           <div className="row">
             <h1>Pages</h1>
             <div className="group">
@@ -131,12 +131,12 @@ export default class Page extends React.Component {
             background-color: rgba(0,0,0,.05);
           }
         `}</style>
-      </AppLayout>
+      </div>
     )
   }
 }
 
-const WEF = `
+const QUERY = `
 {
   allPages: allServicePages {
     edges {
@@ -170,7 +170,7 @@ const WEF = `
 
 Page.getInitialProps = async () => {
   const d = {
-    query: WEF,
+    query: QUERY,
     variables: null,
   };
   const {data: resp} = await axios.post('/', d);
@@ -192,3 +192,5 @@ Page.getInitialProps = async () => {
 
   return {pages, themes};
 }
+
+export default withAppLayout(Page, 'pages');

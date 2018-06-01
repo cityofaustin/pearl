@@ -126,8 +126,10 @@ export default class CreatePage extends React.Component {
             return (
               <button key={i} onClick={this.onSelectPageType.bind(this, pageType)}>
                 <div className="card-body">
-                  <FontAwesomeIcon icon={pageType.icon} />
-                  <h5 className="text-center card-title">{ pageType.name }</h5>
+                  <span className="embiggen">
+                    <FontAwesomeIcon icon={pageType.icon} className="embiggen" />
+                  </span>
+                  <h3 className="text-center card-title">{ pageType.name }</h3>
                   <p className="card-text">{ pageType.description }</p>
                 </div>
               </button>
@@ -150,6 +152,10 @@ export default class CreatePage extends React.Component {
 
           button:hover {
             box-shadow: 3px 3px 8px #666;
+          }
+
+          .embiggen {
+            font-size: 5rem;
           }
         `}</style>
       </div>

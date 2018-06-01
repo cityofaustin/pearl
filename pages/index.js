@@ -1,8 +1,8 @@
 import Link from 'next/link'
-import AppLayout from '../components/AppLayout'
+import {withAppLayout} from '../layouts/AppLayout'
 
-export default () => (
-  <AppLayout title="Dashboard">
+const Page = () => (
+  <div>
     <div>
       <div className="row">
         <Link href="https://github.com/zeit/next.js#getting-started">
@@ -67,5 +67,7 @@ export default () => (
         color: #333;
       }
     `}</style>
-  </AppLayout>
+  </div>
 )
+
+export default withAppLayout(Page, 'Dashboard');

@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Form from "react-jsonschema-form";
 
 import axios from '../../plugins/axios';
-import AppLayout from '../../components/AppLayout';
+import {withAppLayout} from '../../layouts/AppLayout';
 
 
 const schema = {
@@ -90,13 +90,13 @@ query servicePage($pageID: ID!) {
 const log = (type) => console.log.bind(console, type);
 
 
-export default class Page extends React.Component {
+class Page extends React.Component {
   constructor(props) {
     super(props);
   }
 
   static async getInitialProps({ query }) {
-    console.log(`Editing page ${query.id}`);
+    const title = `Editing page ${query.id}`;
     const pageID = decodeURIComponent(query.id);
 
     const d = {
@@ -107,7 +107,7 @@ export default class Page extends React.Component {
     };
     const { data: resp } = await axios.post('', d);
 
-    return {pageID, page: resp.data.allServicePages.edges[0].node};
+    return {pageID, title, page: resp.data.allServicePages.edges[0].node};
   }
 
   render() {
@@ -118,14 +118,16 @@ export default class Page extends React.Component {
     });
 
     return (
-      <AppLayout title={`Editing page ${pageID}`}>
+      <div title={`Editing page ${pageID}`}>
         <h1>Editing Page {pageID}</h1>
 
         <Form schema={schema} uiSchema={uiSchema} formData={formData} onChange={log("changed")} onSubmit={log("submitted")} onError={log("errors")} />
 
         <style jsx>{`
         `}</style>
-      </AppLayout>
+      </div>
     )
   }
 }
+
+export default withAppLayout(Page);
