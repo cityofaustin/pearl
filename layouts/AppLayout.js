@@ -3,8 +3,8 @@ import Link from 'next/link'
 
 import BlankLayout from './BlankLayout'
 import Header from '../components/Header'
-import Nav from '../components/Nav'
 import {getUser} from '../plugins/auth0'
+import Nav from "../components/nav";
 
 
 export const AppLayout = (props) => {
