@@ -17,8 +17,8 @@ COPY package.json package-lock.json ./
 RUN npm install
 ENV PATH /app/node_modules/.bin:$PATH
 
-COPY . ./
+COPY . .
 
 ARG CMS_GRAPHIQL=$CMS_GRAPHIQL
 
-CMD ["bash"]
+CMD ["npm", "run", "dev'"]
