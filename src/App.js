@@ -9,7 +9,7 @@ class App extends Component {
     return (
       <ApolloProvider client={this.props.client}>
         <div className="App">
-          <h2>My first Apollo app 🚀</h2>
+          <h2>OUR  first deployed Apollo app 🚀</h2>
           <Pages />
         </div>
       </ApolloProvider>
