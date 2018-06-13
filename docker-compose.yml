@@ -1,0 +1,24 @@
+version: '3.1'
+
+services:
+  web:
+    command: ["yarn", "start"]
+    stdin_open: true
+    tty: true
+    build:
+      context: .
+      args:
+        - ${HOST_IP}
+        - CMS_GRAPHIQL=http://${HOST_IP}:8000/api/graphiql
+    ports:
+      - "5000:5000"
+    volumes:
+      - node_modules:/app/node_modules
+      - .:/app:delegated
+    environment:
+      - HOST_IP
+      - CMS_API=http://${HOST_IP}:8000/api/graphql
+      - CMS_GRAPHIQL=http://${HOST_IP}:8000/api/graphiql
+
+volumes:
+    node_modules:
