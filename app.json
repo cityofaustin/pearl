@@ -1,7 +1,6 @@
 {
   "name": "pearl",
-  "scripts": {
-  },
+  "scripts": {},
   "env": {
     "CMS_API": {
       "required": true
@@ -12,10 +11,6 @@
       "quantity": 1
     }
   },
-  "addons": [
-
-  ],
-  "buildpacks": [
-
-  ]
+  "addons": [],
+  "buildpacks": []
 }
