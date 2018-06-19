@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { ApolloProvider } from "react-apollo";
-import { BrowserRouter as Router } from "react-router-dom";
+import React, { Component } from 'react';
+import { ApolloProvider } from 'react-apollo';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-import PearlRoutes from "./PearlRoutes";
-import "./App.css";
+import PearlRoutes from './PearlRoutes';
+import './App.css';
 
 class App extends Component {
   render() {

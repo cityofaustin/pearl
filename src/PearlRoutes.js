@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import PagesIndex from "./components/PagesIndex";
-import EditPage from "./components/EditPage";
-import { Route, Redirect, Switch } from "react-router-dom";
+import React, { Component } from 'react';
+import PagesIndex from './components/PagesIndex';
+import EditPage from './components/EditPage';
+import { Route, Redirect, Switch } from 'react-router-dom';
 
 class PearlRoutes extends Component {
   render() {
