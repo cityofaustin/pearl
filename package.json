@@ -11,6 +11,7 @@
     "react": "^16.4.1",
     "react-apollo": "^2.1.5",
     "react-dom": "^16.4.1",
+    "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4"
   },
   "scripts": {
@@ -22,10 +23,8 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
-    "build-css":
-      "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
-    "watch-css":
-      "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive"
+    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
+    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.4.7",
