@@ -20,12 +20,12 @@ const GET_PAGES = gql`
 const PagesIndex = () => (
   <Query query={GET_PAGES}>
     {({ loading, error, data }) => {
-      if (loading) return "Loading...";
+      if (loading) return 'Loading...';
       if (error) return `Error! ${error.message}`;
 
       return data.allServicePages.edges.map(edge => (
         <div key={edge.node.id} value={edge.node.title}>
-          <Link to={`/edit/${edge.node.slug}`}>{edge.node.title}</Link>
+          <Link to={`/edit/${edge.node.id}`}>{edge.node.title}</Link>
         </div>
       ));
     }}

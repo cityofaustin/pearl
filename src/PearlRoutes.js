@@ -9,7 +9,7 @@ class PearlRoutes extends Component {
       <div className="PearlApp">
         <Switch>
           <Route path="/" exact component={PagesIndex} />
-          <Route path="/edit/:pageSlug" component={EditPage} />
+          <Route path="/edit/:id" component={EditPage} />
         </Switch>
       </div>
     );
