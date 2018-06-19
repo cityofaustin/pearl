@@ -1,6 +1,7 @@
-import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
-import React from 'react';
+import gql from "graphql-tag";
+import { Query } from "react-apollo";
+import React from "react";
+import { Link } from "react-router-dom";
 
 const GET_PAGES = gql`
   {
@@ -9,25 +10,26 @@ const GET_PAGES = gql`
         node {
           id
           title
+          slug
         }
       }
     }
   }
 `;
 
-const Pages = () => (
+const PagesIndex = () => (
   <Query query={GET_PAGES}>
     {({ loading, error, data }) => {
-      if (loading) return 'Loading...';
+      if (loading) return "Loading...";
       if (error) return `Error! ${error.message}`;
 
       return data.allServicePages.edges.map(edge => (
         <div key={edge.node.id} value={edge.node.title}>
-          {edge.node.title}
+          <Link to={`/edit/${edge.node.slug}`}>{edge.node.title}</Link>
         </div>
       ));
     }}
   </Query>
 );
 
-export default Pages;
+export default PagesIndex;
