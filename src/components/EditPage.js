@@ -1,7 +1,6 @@
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 const GET_SINGLE_PAGE = gql`
   query oneServicePage($id: ID) {
