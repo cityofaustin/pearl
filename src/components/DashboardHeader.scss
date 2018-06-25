@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Yellowtail');
+@import '../constants/variables.scss';
+
+.coa-DashboardHeader {
+  background: $color-dark-blue;
+
+  h2 {
+    font-family: 'Yellowtail', cursive;
+    color: $color-bright-green;
+  }
+}
+
+.coa-Dashboard--right {
+  text-align: right;
+}
