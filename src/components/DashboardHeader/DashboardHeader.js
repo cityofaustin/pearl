@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import UserSettings from './UserSettings.js';
-import PropTypes from 'prop-types';
+import React from 'react';
+import UserSettings from '../UserSettings/UserSettings';
+import { currentUserPropTypes } from './proptypes';
 
 import './DashboardHeader.css';
 
@@ -18,7 +18,7 @@ const DashboardHeader = ({ currentUser }) => (
 );
 
 DashboardHeader.propTypes = {
-  currentUser: PropTypes.object,
+  currentUser: currentUserPropTypes,
 };
 
 export default DashboardHeader;

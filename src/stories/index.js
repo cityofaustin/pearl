@@ -4,16 +4,14 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 
-import { Button, Welcome } from '@storybook/react/demo';
+import DashboardHeader from '../components/DashboardHeader/DashboardHeader';
 
-storiesOf('Welcome', module).add('to Storybook', () => (
-  <Welcome showApp={linkTo('Button')} />
+const currentUser = {
+  firstName: 'Steve',
+  role: 'superadmin',
+  department: 'Office of the Mayor',
+};
+
+storiesOf('DashboardHeader', module).add('DashboardHeader', () => (
+  <DashboardHeader currentUser={currentUser} />
 ));
-
-storiesOf('Button', module)
-  .add('with text', () => (
-    <Button onClick={action('clicked')}>Hello Button</Button>
-  ))
-  .add('with some emoji', () => (
-    <Button onClick={action('clicked')}>😀 😎 👍 💯</Button>
-  ));

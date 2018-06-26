@@ -7,6 +7,7 @@ import {
 } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { currentUserPropTypes } from '../DashboardHeader/proptypes';
 
 import './UserSettings.css';
 
@@ -61,5 +62,9 @@ class UserSettings extends Component {
     );
   }
 }
+
+UserSettings.propTypes = {
+  currentUser: currentUserPropTypes,
+};
 
 export default UserSettings;

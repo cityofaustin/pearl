@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import DashboardHeader from './components/DashboardHeader';
+import DashboardHeader from './components/DashboardHeader/DashboardHeader';
 import PagesIndex from './components/PagesIndex';
 import EditPage from './components/EditPage';
 
