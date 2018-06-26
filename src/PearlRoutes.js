@@ -6,9 +6,18 @@ import EditPage from './components/EditPage';
 
 class PearlRoutes extends Component {
   render() {
+    const currentUser = {
+      firstName: 'Janis',
+      role: 'superadmin',
+      department: 'CTM',
+    };
+
     return (
       <div className="PearlApp">
-        <Route path="/" component={DashboardHeader} />
+        <Route
+          path="/"
+          render={props => <DashboardHeader currentUser={currentUser} />}
+        />
         <Switch>
           <Route path="/" exact component={PagesIndex} />
           <Route path="/edit/:id" component={EditPage} />

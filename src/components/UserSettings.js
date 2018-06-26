@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
+import {
+  Dropdown,
+  DropdownMenu,
+  DropdownToggle,
+  DropdownItem,
+} from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
@@ -22,6 +27,8 @@ class UserSettings extends Component {
   }
 
   render() {
+    const { firstName, role, department } = this.props.currentUser;
+
     return (
       <Dropdown
         className="coa-UserSettings"
@@ -40,13 +47,15 @@ class UserSettings extends Component {
           data-toggle="dropdown"
           aria-expanded={this.state.dropdownOpen}
         >
-          First Name
+          {firstName}
         </DropdownToggle>
-        <DropdownMenu>
-          <div onClick={this.toggle}>Custom dropdown item</div>
-          <div onClick={this.toggle}>Custom dropdown item</div>
-          <div onClick={this.toggle}>Custom dropdown item</div>
-          <div onClick={this.toggle}>Custom dropdown item</div>
+        <DropdownMenu right className="coa-UserSettings-dropdown-menu">
+          <DropdownItem header>
+            {role} -- {department}
+          </DropdownItem>
+          <DropdownItem divider />
+          <DropdownItem>Profile Settings</DropdownItem>
+          <DropdownItem>Logoff</DropdownItem>
         </DropdownMenu>
       </Dropdown>
     );
