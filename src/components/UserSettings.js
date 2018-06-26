@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 import './UserSettings.css';
 
@@ -26,6 +28,11 @@ class UserSettings extends Component {
         isOpen={this.state.dropdownOpen}
         toggle={this.toggle}
       >
+        <FontAwesomeIcon
+          icon={faUserCircle}
+          size="2x"
+          className="mr-2 coa-UserSettings-avatar"
+        />
         <DropdownToggle
           caret
           tag="span"
